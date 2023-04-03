@@ -19,6 +19,11 @@ async function getFilms() {
 
 function App() {
   const [films, setFilms] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm.toLowerCase());
+  };
 
   useEffect(() => {
     getFilms()
@@ -34,13 +39,21 @@ function App() {
   return (
     <div className="App">
       <header className="header">
-        <Search />
+        <Search onSearch={handleSearch} />
       </header>
       <main>
         <div className="film-list">
-          {films.map((film) => (
-            <Film key={film.id} film={film} />
-          ))}
+          {films
+            .filter((film) => {
+              const name = film.name.toLowerCase();
+              const description = film.description.toLowerCase();
+              return (
+                name.includes(searchTerm) || description.includes(searchTerm)
+              );
+            })
+            .map((film) => (
+              <Film key={film.id} film={film} />
+            ))}
         </div>
       </main>
     </div>
