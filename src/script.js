@@ -1,6 +1,4 @@
-fetch("https://github.com/sakomg/my-films/blob/main/films.json", {
-  mode: "no-cors",
-})
+fetch("https://sakomg.github.io/my-films/films.json")
   .then((response) => response.json())
   .then((data) => {
     const films = data.films;
