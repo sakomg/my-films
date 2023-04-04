@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const CardContainer = styled.div`
@@ -61,13 +61,38 @@ const CardLink = styled.a`
   }
 `;
 
+const ExpandButton = styled.button`
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 14px;
+`;
+
 const Film = ({ film }) => {
+  const [expanded, setExpanded] = useState(false);
+
   const { name, shortDescription, poster, year, rating, watchability } = film;
   return (
     <CardContainer>
       <CardImage src={poster.previewUrl} alt={name} />
       <CardTitle>{name}</CardTitle>
-      <CardDescription>{shortDescription}</CardDescription>
+      {!expanded ? (
+        <CardDescription>
+          {shortDescription?.substring(0, 30) + "..."}
+        </CardDescription>
+      ) : (
+        <CardDescription title={shortDescription}>
+          {shortDescription}
+        </CardDescription>
+      )}
+      {!expanded && (
+        <div style={{ textAlign: "right" }}>
+          <ExpandButton onClick={() => setExpanded(true)}>
+            Read More
+          </ExpandButton>
+        </div>
+      )}
       <span>
         <strong>Год:</strong> {year}
       </span>
