@@ -17,14 +17,14 @@ export default function Search(props) {
     <form onSubmit={handleSubmit}>
       <div className="search-box">
         <input
-          placeholder="Search..."
+          placeholder="Поиск..."
           className="search-input"
           type="text"
           value={searchTerm}
           onChange={handleChange}
         />
         <button className="search-button" type="submit">
-          Search
+          Поиск
         </button>
       </div>
     </form>

@@ -69,14 +69,13 @@ const Film = ({ film }) => {
       <CardTitle>{name}</CardTitle>
       <CardDescription>{shortDescription}</CardDescription>
       <span>
-        <strong>Year:</strong> {year}
+        <strong>Год:</strong> {year}
       </span>
       <span>
-        <strong>Rating:</strong>
+        <strong>Рейтинг:</strong>
         <ul>
-          <li>imdb: {rating.imdb}</li>
-          <li>russian film critics: {rating.russianFilmCritics}</li>
-          <li>kp: {rating.kp}</li>
+          <li>IMDb: {rating.imdb}</li>
+          <li>Кинопоиск: {rating.kp}</li>
         </ul>
       </span>
       <CardLinkContainer>
