@@ -88,6 +88,13 @@ const Film = ({ film }) => {
                 rel="noopener noreferrer"
               >
                 {link.name}
+                <img
+                  src={link.logo.url}
+                  alt={link.name}
+                  style={{ margin: "-1px 0px -5px 5px" }}
+                  width={20}
+                  height={20}
+                />
               </CardLink>
             ))
           : ""}
