@@ -4,13 +4,13 @@ import styled from "styled-components";
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 250px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.2s ease-in-out;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 
   &:hover {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -82,48 +82,48 @@ const Film = ({ film }) => {
           {shortDescription?.substring(0, 30) + "..."}
         </CardDescription>
       ) : (
-        <CardDescription title={shortDescription}>
-          {shortDescription}
-        </CardDescription>
+        <>
+          <CardDescription title={shortDescription}>
+            {shortDescription}
+          </CardDescription>
+          <span>
+            <strong>Год:</strong> {year}
+          </span>
+          <span>
+            <strong>Рейтинг:</strong>
+            <ul>
+              <li>IMDb: {rating.imdb}</li>
+              <li>Кинопоиск: {rating.kp}</li>
+            </ul>
+          </span>
+          <CardLinkContainer>
+            {watchability.items != null
+              ? watchability.items.map((link, index) => (
+                  <CardLink
+                    key={index}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.name}
+                    <img
+                      src={link.logo.url}
+                      alt={link.name}
+                      style={{ margin: "-1px 0px -5px 5px" }}
+                      width={20}
+                      height={20}
+                    />
+                  </CardLink>
+                ))
+              : ""}
+          </CardLinkContainer>
+        </>
       )}
-      {!expanded && (
-        <div style={{ textAlign: "right" }}>
-          <ExpandButton onClick={() => setExpanded(true)}>
-            Read More
-          </ExpandButton>
-        </div>
-      )}
-      <span>
-        <strong>Год:</strong> {year}
-      </span>
-      <span>
-        <strong>Рейтинг:</strong>
-        <ul>
-          <li>IMDb: {rating.imdb}</li>
-          <li>Кинопоиск: {rating.kp}</li>
-        </ul>
-      </span>
-      <CardLinkContainer>
-        {watchability.items != null
-          ? watchability.items.map((link, index) => (
-              <CardLink
-                key={index}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {link.name}
-                <img
-                  src={link.logo.url}
-                  alt={link.name}
-                  style={{ margin: "-1px 0px -5px 5px" }}
-                  width={20}
-                  height={20}
-                />
-              </CardLink>
-            ))
-          : ""}
-      </CardLinkContainer>
+      <div style={{ textAlign: "right" }}>
+        <ExpandButton onClick={() => setExpanded(!expanded)}>
+          {expanded ? "Hide Details" : "Show Details"}
+        </ExpandButton>
+      </div>
     </CardContainer>
   );
 };
