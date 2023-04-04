@@ -7,10 +7,10 @@ import axios from "axios";
 
 async function getFilms() {
   const result = await axios.get(
-    "https://api.kinopoisk.dev/v1/movie?limit=25",
+    "https://api.kinopoisk.dev/v1/movie?limit=100",
     {
       headers: {
-        ["x-api-key"]: "7V2EEJ6-HKB4MZR-GF4DPD2-CW2HZDR",
+        "x-api-key": "7V2EEJ6-HKB4MZR-GF4DPD2-CW2HZDR",
       },
     }
   );
@@ -26,18 +26,20 @@ function App() {
   };
 
   useEffect(() => {
-    getFilms()
-      .then((result) => {
-        console.log(result);
-        setFilms(result.data.docs);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // getFilms()
+    //   .then((result) => {
+    //     console.log(result.data);
+    //     setFilms(result.data.docs);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    console.log(filmsData);
+    setFilms(filmsData);
   }, []);
 
   return (
-    <div className="App">
+    <div className="container">
       <header className="header">
         <Search onSearch={handleSearch} />
       </header>
