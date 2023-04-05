@@ -19,6 +19,10 @@ const SearchInput = styled.input`
   &:focus {
     outline: none;
   }
+
+  @media (max-width: 767px) {
+    width: 300px;
+  }
 `;
 
 const SearchIcon = styled(FaSearch)`

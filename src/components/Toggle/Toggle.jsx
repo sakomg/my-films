@@ -5,6 +5,10 @@ const ToggleWrapper = styled.label`
   display: flex;
   align-items: center;
   font-size: 16px;
+
+  @media (max-width: 767px) {
+    margin-top: 12px;
+  }
 `;
 
 const ToggleButton = styled.div`

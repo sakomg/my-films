@@ -3,6 +3,10 @@ import _debounce from "lodash/debounce";
 import filmsData from "./films.json";
 import FilmList from "./components/FilmList/FilmList";
 import { getMoviesByName, getMovies } from "./kinopoisk-api/api";
+import {
+  getFilmsFromLocalStorage,
+  setFilmsToLocalStorage,
+} from "./database/storage";
 import Header from "./components/Header/Header";
 import "./App.css";
 
@@ -14,7 +18,8 @@ function App() {
 
   useEffect(() => {
     console.log(filmsData);
-    setFilms(filmsData);
+    const storedFilms = getFilmsFromLocalStorage();
+    setFilms(storedFilms.length ? storedFilms : filmsData);
   }, []);
 
   const handleSearch = _debounce(async (searchTerm) => {
@@ -39,6 +44,10 @@ function App() {
   const handleChangeSearchMode = (isApiSearch) => {
     setIsApiSearch(isApiSearch);
   };
+
+  useEffect(() => {
+    setFilmsToLocalStorage(films);
+  }, [films]);
 
   return (
     <>
