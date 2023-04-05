@@ -1,64 +1,50 @@
 import React, { useEffect, useState } from "react";
+import _debounce from "lodash/debounce";
 import filmsData from "./films.json";
+import FilmList from "./components/FilmList/FilmList";
+import { getMoviesByName, getMovies } from "./kinopoisk-api/api";
+import Header from "./components/Header/Header";
 import "./App.css";
-import Search from "./components/Search/Search";
-import Film from "./components/Film/Film";
-import axios from "axios";
-
-async function getFilms() {
-  const result = await axios.get(
-    "https://api.kinopoisk.dev/v1/movie?limit=100",
-    {
-      headers: {
-        "x-api-key": "7V2EEJ6-HKB4MZR-GF4DPD2-CW2HZDR",
-      },
-    }
-  );
-  return result;
-}
 
 function App() {
   const [films, setFilms] = useState([]);
+  const [filteredFilms, setFilterFilms] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearch = (searchTerm) => {
-    setSearchTerm(searchTerm.toLowerCase());
-  };
+  const [isApiSearch, setIsApiSearch] = useState(false);
 
   useEffect(() => {
-    // getFilms()
-    //   .then((result) => {
-    //     console.log(result.data);
-    //     setFilms(result.data.docs);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
     console.log(filmsData);
     setFilms(filmsData);
   }, []);
 
+  const handleSearch = _debounce(async (searchTerm) => {
+    let filteredFilms = [];
+    if (isApiSearch) {
+      if (searchTerm.length > 2) {
+        const result = await getMoviesByName(searchTerm);
+        filteredFilms = result.data.docs;
+        console.log(result.data);
+      }
+    } else {
+      filteredFilms = films.filter((film) => {
+        const name = film.name.toLowerCase();
+        const description = film.description.toLowerCase();
+        return name.includes(searchTerm) || description.includes(searchTerm);
+      });
+    }
+    setSearchTerm(searchTerm);
+    setFilterFilms(filteredFilms);
+  }, 500);
+
+  const handleChangeSearchMode = (isApiSearch) => {
+    setIsApiSearch(isApiSearch);
+  };
+
   return (
-    <div className="container">
-      <header className="header">
-        <Search onSearch={handleSearch} />
-      </header>
-      <main>
-        <div className="film-list">
-          {films
-            .filter((film) => {
-              const name = film.name.toLowerCase();
-              const description = film.description.toLowerCase();
-              return (
-                name.includes(searchTerm) || description.includes(searchTerm)
-              );
-            })
-            .map((film) => (
-              <Film key={film.id} film={film} />
-            ))}
-        </div>
-      </main>
-    </div>
+    <>
+      <Header onSearch={handleSearch} onSearchMode={handleChangeSearchMode} />
+      <FilmList films={searchTerm.length ? filteredFilms : films} />
+    </>
   );
 }
 

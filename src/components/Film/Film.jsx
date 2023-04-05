@@ -4,7 +4,7 @@ import styled from "styled-components";
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 270px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -75,11 +75,13 @@ const Film = ({ film }) => {
   const { name, shortDescription, poster, year, rating, watchability } = film;
   return (
     <CardContainer>
-      <CardImage src={poster.previewUrl} alt={name} />
+      <CardImage src={poster?.previewUrl} alt={name} />
       <CardTitle>{name}</CardTitle>
       {!expanded ? (
         <CardDescription>
-          {shortDescription?.substring(0, 30) + "..."}
+          {shortDescription && shortDescription.length
+            ? shortDescription.substring(0, 30) + "..."
+            : "none"}
         </CardDescription>
       ) : (
         <>
