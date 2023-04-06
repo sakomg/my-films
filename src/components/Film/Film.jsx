@@ -5,16 +5,20 @@ import styled from "styled-components";
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 270px;
+  width: 250px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.2s ease-in-out;
-  margin-bottom: 20px;
+  margin: 10px;
 
   &:hover {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 767px) {
+    margin-top: 110px;
   }
 `;
 
