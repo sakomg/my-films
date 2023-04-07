@@ -45,6 +45,7 @@ const Button = styled.button`
   @media (max-width: 767px) {
     position: static;
     margin-top: 12px;
+    display: none;
   }
 `;
 

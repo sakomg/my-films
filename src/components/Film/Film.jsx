@@ -18,7 +18,7 @@ const CardContainer = styled.div`
   }
 
   @media (max-width: 767px) {
-    margin-top: 110px;
+    width: 300px;
   }
 `;
 
@@ -33,6 +33,10 @@ const CardImage = styled.img`
   height: 300px;
   object-fit: cover;
   border-radius: 5px 5px 0 0;
+
+  @media (max-width: 767px) {
+    height: 450px;
+  }
 `;
 
 const ExpandButton = styled.button`
@@ -44,6 +48,7 @@ const ExpandButton = styled.button`
 `;
 
 const ButtonGroup = styled.div`
+  background: rgba(0, 0, 0, 0.8);
   position: absolute;
   flex-direction: column;
   align-items: center;
@@ -54,7 +59,7 @@ const AddRemoveButton = styled.button`
   background-color: transparent;
   border: none;
   transition: all 0.3s ease;
-  font-size: 4rem;
+  font-size: 2.5rem;
   cursor: pointer;
 
   &:hover {
@@ -68,6 +73,7 @@ const RemoveButton = styled(AddRemoveButton)``;
 
 const Film = ({ film, addFilm, removeFilm }) => {
   const [expanded, setExpanded] = useState(false);
+  const [buttonVisible, setButtonVisible] = useState(false);
 
   const {
     name,
@@ -80,11 +86,14 @@ const Film = ({ film, addFilm, removeFilm }) => {
     added,
   } = film;
   return (
-    <CardContainer>
+    <CardContainer
+      onMouseEnter={() => setButtonVisible(true)}
+      onMouseLeave={() => setButtonVisible(false)}
+    >
       <CardImage src={poster?.previewUrl} alt={name} />
-      <ButtonGroup>
+      <ButtonGroup style={{ display: buttonVisible ? "block" : "none" }}>
         <AddButton>
-          {film.added ? (
+          {added ? (
             <i className="fa-fw far fa-eye-slash"></i>
           ) : (
             <i className="fa-fw far fa-eye" onClick={() => addFilm(film)}></i>
