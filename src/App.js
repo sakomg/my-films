@@ -45,16 +45,17 @@ function App() {
   }, 500);
 
   const handleChangeSearchMode = (isApiSearch) => {
-    console.log(isApiSearch);
     setIsApiSearch(isApiSearch);
     if (!isApiSearch) {
       const films = getFilmsFromLocalStorage();
       setFilms(films);
-      setFilterFilms(films);
+      setFilterFilms([]);
+      setSearchTerm("");
     }
   };
 
   const addFilm = (film) => {
+    film.added = true;
     const films = addFilmToLocalStorage(film);
     setFilms(films);
   };

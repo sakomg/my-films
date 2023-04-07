@@ -69,14 +69,26 @@ const RemoveButton = styled(AddRemoveButton)``;
 const Film = ({ film, addFilm, removeFilm }) => {
   const [expanded, setExpanded] = useState(false);
 
-  const { name, shortDescription, poster, year, rating, watchability, id } =
-    film;
+  const {
+    name,
+    shortDescription,
+    poster,
+    year,
+    rating,
+    watchability,
+    id,
+    added,
+  } = film;
   return (
     <CardContainer>
       <CardImage src={poster?.previewUrl} alt={name} />
       <ButtonGroup>
-        <AddButton onClick={() => addFilm(film)}>
-          <i className="fa-fw far fa-eye"></i>
+        <AddButton>
+          {film.added ? (
+            <i className="fa-fw far fa-eye-slash"></i>
+          ) : (
+            <i className="fa-fw far fa-eye" onClick={() => addFilm(film)}></i>
+          )}
         </AddButton>
 
         <RemoveButton onClick={() => removeFilm(id)}>
