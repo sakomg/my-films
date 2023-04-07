@@ -6,9 +6,12 @@ import { getMoviesByName, getMovies } from "./kinopoisk-api/api";
 import {
   getFilmsFromLocalStorage,
   setFilmsToLocalStorage,
+  addFilmToLocalStorage,
+  removeFilmFromStorage,
 } from "./database/storage";
 import Header from "./components/Header/Header";
 import "./App.css";
+import "./lib/css/all.min.css";
 
 function App() {
   const [films, setFilms] = useState([]);
@@ -19,7 +22,7 @@ function App() {
   useEffect(() => {
     console.log(filmsData);
     const storedFilms = getFilmsFromLocalStorage();
-    setFilms(storedFilms.length ? storedFilms : filmsData);
+    setFilms(storedFilms);
   }, []);
 
   const handleSearch = _debounce(async (searchTerm) => {
@@ -32,8 +35,8 @@ function App() {
       }
     } else {
       filteredFilms = films.filter((film) => {
-        const name = film.name.toLowerCase();
-        const description = film.description.toLowerCase();
+        const name = film.name?.toLowerCase() || "";
+        const description = film.description?.toLowerCase() || "";
         return name.includes(searchTerm) || description.includes(searchTerm);
       });
     }
@@ -42,17 +45,33 @@ function App() {
   }, 500);
 
   const handleChangeSearchMode = (isApiSearch) => {
+    console.log(isApiSearch);
     setIsApiSearch(isApiSearch);
+    if (!isApiSearch) {
+      const films = getFilmsFromLocalStorage();
+      setFilms(films);
+      setFilterFilms(films);
+    }
   };
 
-  useEffect(() => {
-    setFilmsToLocalStorage(films);
-  }, [films]);
+  const addFilm = (film) => {
+    const films = addFilmToLocalStorage(film);
+    setFilms(films);
+  };
+
+  const removeFilm = (id) => {
+    const films = removeFilmFromStorage(id);
+    setFilms(films);
+  };
 
   return (
     <>
       <Header onSearch={handleSearch} onSearchMode={handleChangeSearchMode} />
-      <FilmList films={searchTerm.length ? filteredFilms : films} />
+      <FilmList
+        films={searchTerm.length ? filteredFilms : films}
+        addFilm={addFilm}
+        removeFilm={removeFilm}
+      />
     </>
   );
 }

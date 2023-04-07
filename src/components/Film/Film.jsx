@@ -43,13 +43,46 @@ const ExpandButton = styled.button`
   font-size: 14px;
 `;
 
-const Film = ({ film }) => {
+const ButtonGroup = styled.div`
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const AddRemoveButton = styled.button`
+  color: #fefefe;
+  background-color: transparent;
+  border: none;
+  transition: all 0.3s ease;
+  font-size: 4rem;
+  cursor: pointer;
+
+  &:hover {
+    color: rgb(0, 123, 255);
+  }
+`;
+
+const AddButton = styled(AddRemoveButton)``;
+
+const RemoveButton = styled(AddRemoveButton)``;
+
+const Film = ({ film, addFilm, removeFilm }) => {
   const [expanded, setExpanded] = useState(false);
 
-  const { name, shortDescription, poster, year, rating, watchability } = film;
+  const { name, shortDescription, poster, year, rating, watchability, id } =
+    film;
   return (
     <CardContainer>
       <CardImage src={poster?.previewUrl} alt={name} />
+      <ButtonGroup>
+        <AddButton onClick={() => addFilm(film)}>
+          <i className="fa-fw far fa-eye"></i>
+        </AddButton>
+
+        <RemoveButton onClick={() => removeFilm(id)}>
+          <i className="fa-fw fa fa-times"></i>
+        </RemoveButton>
+      </ButtonGroup>
       <CardTitle>{name}</CardTitle>
       <FilmDesc
         expanded={expanded}

@@ -9,8 +9,16 @@ export function setFilmsToLocalStorage(films) {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(films));
 }
 
+export function addFilmToLocalStorage(film) {
+  const films = JSON.parse(localStorage.getItem("films")) || [];
+  films.unshift(film);
+  localStorage.setItem("films", JSON.stringify(films));
+  return films;
+}
+
 export function removeFilmFromStorage(id) {
   const films = JSON.parse(localStorage.getItem("films")) || [];
   const updatedFilms = films.filter((film) => film.id !== id);
   localStorage.setItem("films", JSON.stringify(updatedFilms));
+  return updatedFilms;
 }
