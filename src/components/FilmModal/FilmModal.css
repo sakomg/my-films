@@ -1,0 +1,43 @@
+form > div {
+  display: flex;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  max-width: 80%;
+}
+
+.input-group > label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.input {
+  width: 100%;
+  display: flex;
+}
+
+.add-btn {
+  padding: 0.5rem 1rem;
+  background: #ccc;
+  border: none;
+  font-size: 0.9rem;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e34728;
+  background: #fff;
+  margin: 1.2rem 0;
+  color: #e34728;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}

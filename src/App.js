@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import _debounce from "lodash/debounce";
-import filmsData from "./films.json";
 import FilmList from "./components/FilmList/FilmList";
 import { getMoviesByName, getMovies } from "./kinopoisk-api/api";
 import {
@@ -20,8 +19,8 @@ function App() {
   const [isApiSearch, setIsApiSearch] = useState(false);
 
   useEffect(() => {
-    console.log(filmsData);
     const storedFilms = getFilmsFromLocalStorage();
+    console.log(storedFilms);
     setFilms(storedFilms);
   }, []);
 
@@ -67,7 +66,11 @@ function App() {
 
   return (
     <>
-      <Header onSearch={handleSearch} onSearchMode={handleChangeSearchMode} />
+      <Header
+        onSearch={handleSearch}
+        onSearchMode={handleChangeSearchMode}
+        onAddFilm={addFilm}
+      />
       <FilmList
         films={searchTerm.length ? filteredFilms : films}
         addFilm={addFilm}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Search from "../Search/Search";
 import Toggle from "../Toggle/Toggle";
+import FilmModal from "../FilmModal/FilmModal";
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -24,6 +25,11 @@ const HeaderContainer = styled.div`
   }
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  margin-top: 12px;
+`;
+
 const Button = styled.button`
   border: 2px solid #007bff;
   border-radius: 20px;
@@ -36,6 +42,7 @@ const Button = styled.button`
   transition: all 0.3s ease;
   position: absolute;
   right: 12px;
+  top: 12px;
 
   &:hover {
     background-color: #007bff;
@@ -44,13 +51,20 @@ const Button = styled.button`
 
   @media (max-width: 767px) {
     position: static;
-    margin-top: 12px;
-    display: none;
   }
 `;
 
-const Header = ({ onSearch, onSearchMode }) => {
+const Header = ({ onSearch, onSearchMode, onAddFilm }) => {
   const [isApiSearch, setIsApiSearch] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleSaveModal = (film) => {
+    onAddFilm(film);
+  };
 
   const handleSearch = (searchTerm) => {
     onSearch(searchTerm);
@@ -64,12 +78,21 @@ const Header = ({ onSearch, onSearchMode }) => {
   return (
     <HeaderContainer>
       <Search onSearch={handleSearch} />
-      <Toggle
-        label={isApiSearch ? "Поиск на Кинопоиске" : "Поиск локально"}
-        checked={isApiSearch}
-        onChange={handleChangeMode}
-      />
-      <Button>Добавить</Button>
+      <ButtonContainer>
+        <Toggle
+          label={isApiSearch ? "Поиск на Кинопоиске" : "Поиск локально"}
+          checked={isApiSearch}
+          onChange={handleChangeMode}
+        />
+        <Button onClick={handleOpenModal}>Добавить</Button>
+      </ButtonContainer>
+      {isModalOpen && (
+        <FilmModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveModal}
+        />
+      )}
     </HeaderContainer>
   );
 };

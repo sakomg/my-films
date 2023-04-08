@@ -10,8 +10,8 @@
   padding-top: 70px;
 }
 
-.film-list {
-  @media (max-width: 767px) {
+@media (max-width: 767px) {
+  .film-list {
     padding-top: 120px;
   }
 }

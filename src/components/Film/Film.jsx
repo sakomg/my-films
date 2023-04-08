@@ -75,43 +75,27 @@ const Film = ({ film, addFilm, removeFilm }) => {
   const [expanded, setExpanded] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
 
-  const {
-    name,
-    shortDescription,
-    poster,
-    year,
-    rating,
-    watchability,
-    id,
-    added,
-  } = film;
   return (
     <CardContainer
       onMouseEnter={() => setButtonVisible(true)}
       onMouseLeave={() => setButtonVisible(false)}
     >
-      <CardImage src={poster?.previewUrl} alt={name} />
+      <CardImage src={film.poster?.previewUrl} alt={film.name} />
       <ButtonGroup style={{ display: buttonVisible ? "block" : "none" }}>
         <AddButton>
-          {added ? (
+          {film.added ? (
             <i className="fa-fw far fa-eye-slash"></i>
           ) : (
             <i className="fa-fw far fa-eye" onClick={() => addFilm(film)}></i>
           )}
         </AddButton>
 
-        <RemoveButton onClick={() => removeFilm(id)}>
+        <RemoveButton onClick={() => removeFilm(film.id)}>
           <i className="fa-fw fa fa-times"></i>
         </RemoveButton>
       </ButtonGroup>
-      <CardTitle>{name}</CardTitle>
-      <FilmDesc
-        expanded={expanded}
-        shortDescription={shortDescription}
-        year={year}
-        rating={rating}
-        watchability={watchability}
-      />
+      <CardTitle>{film.name}</CardTitle>
+      <FilmDesc film={film} expanded={expanded} />
       <div style={{ textAlign: "right" }}>
         <ExpandButton onClick={() => setExpanded(!expanded)}>
           {expanded ? "Hide Details" : "Show Details"}
