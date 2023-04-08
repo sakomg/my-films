@@ -20,7 +20,7 @@ async function getMovies(limit = 100) {
 async function getMoviesByName(name) {
   let result = [];
   try {
-    result = await axios.get(`${BASE_URL}/movie?name=${name}`, {
+    result = await axios.get(`${BASE_URL}/movie?name=${name}&limit=100`, {
       headers: HEADERS,
     });
   } catch (error) {
