@@ -80,7 +80,17 @@ const Header = ({ onSearch, onSearchMode, onAddFilm }) => {
       <Search onSearch={handleSearch} />
       <ButtonContainer>
         <Toggle
-          label={isApiSearch ? "Поиск на Кинопоиске" : "Поиск локально"}
+          label={
+            isApiSearch ? (
+              <span>
+                Поиск на Кинопоиске <i className="fas fa-server"></i>
+              </span>
+            ) : (
+              <span>
+                Поиск локально <i className="fas fa-laptop-house"></i>
+              </span>
+            )
+          }
           checked={isApiSearch}
           onChange={handleChangeMode}
         />
