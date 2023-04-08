@@ -11,13 +11,11 @@ const CardLinkContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
+  margin-bottom: 20px;
 `;
 
-const combineDesc = (shortDesc, desc) => {};
-
 const FilmDesc = ({ film, expanded }) => {
-  const { year, watchability, rating, description } = film;
-  // const desc = combineDesc(film.shortDescription, film.description);
+  const { watchability, rating, description, countries } = film;
   return (
     <>
       {!expanded ? (
@@ -30,7 +28,8 @@ const FilmDesc = ({ film, expanded }) => {
         <>
           <CardDescription title={description}>{description}</CardDescription>
           <span>
-            <strong>Год:</strong> {year}
+            <strong>Страна(ы) производства:</strong>{" "}
+            {countries.map((country) => country.name).join(", ")}
           </span>
           <span>
             <strong>Рейтинг:</strong>

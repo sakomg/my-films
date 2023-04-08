@@ -3,6 +3,7 @@ import FilmDesc from "../FilmDesc/FilmDesc";
 import styled from "styled-components";
 
 const CardContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 250px;
@@ -37,6 +38,12 @@ const CardImage = styled.img`
   @media (max-width: 767px) {
     height: 450px;
   }
+`;
+
+const ExpandButtonContainer = styled.div`
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
 `;
 
 const ExpandButton = styled.button`
@@ -94,13 +101,15 @@ const Film = ({ film, addFilm, removeFilm }) => {
           <i className="fa-fw fa fa-times"></i>
         </RemoveButton>
       </ButtonGroup>
-      <CardTitle>{film.name}</CardTitle>
+      <CardTitle>
+        {film.name} ({film.year})
+      </CardTitle>
       <FilmDesc film={film} expanded={expanded} />
-      <div style={{ textAlign: "right" }}>
+      <ExpandButtonContainer>
         <ExpandButton onClick={() => setExpanded(!expanded)}>
           {expanded ? "Hide Details" : "Show Details"}
         </ExpandButton>
-      </div>
+      </ExpandButtonContainer>
     </CardContainer>
   );
 };
