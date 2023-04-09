@@ -26,7 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "git add . && git commit -m 'auto' && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
