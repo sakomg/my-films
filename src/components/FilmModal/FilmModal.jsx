@@ -117,7 +117,7 @@ const FilmModal = ({ isOpen, onClose, onSave }) => {
       previewUrl: "",
     },
     genres: [],
-    countries: [,],
+    countries: [],
     alternativeName: "",
     enName: null,
     names: [],

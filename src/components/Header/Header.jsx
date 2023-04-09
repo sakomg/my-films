@@ -27,7 +27,10 @@ const HeaderContainer = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  margin-top: 12px;
+
+  @media (max-width: 767px) {
+    margin-top: 12px;
+  }
 `;
 
 const Button = styled.button`
@@ -83,11 +86,11 @@ const Header = ({ onSearch, onSearchMode, onAddFilm }) => {
           label={
             isApiSearch ? (
               <span>
-                Поиск на Кинопоиске <i className="fas fa-server"></i>
+                Кинопоиск <i className="fas fa-server"></i>
               </span>
             ) : (
               <span>
-                Поиск локально <i className="fas fa-laptop-house"></i>
+                Локально <i className="fas fa-laptop-house"></i>
               </span>
             )
           }

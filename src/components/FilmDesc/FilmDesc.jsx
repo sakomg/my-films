@@ -3,15 +3,15 @@ import FilmLink from "../FilmLink/FilmLink";
 
 const CardDescription = styled.p`
   font-size: 16px;
-  margin-bottom: 10px;
   color: #666;
+  margin-bottom: 35px;
 `;
 
 const CardLinkContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
 
 const FilmDesc = ({ film, expanded }) => {

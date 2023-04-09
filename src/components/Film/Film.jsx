@@ -36,7 +36,7 @@ const CardImage = styled.img`
   border-radius: 5px 5px 0 0;
 
   @media (max-width: 767px) {
-    height: 450px;
+    height: 350px;
   }
 `;
 
@@ -51,7 +51,7 @@ const ExpandButton = styled.button`
   border: none;
   color: #007bff;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
 `;
 
 const ButtonGroup = styled.div`
@@ -107,7 +107,7 @@ const Film = ({ film, addFilm, removeFilm }) => {
       <FilmDesc film={film} expanded={expanded} />
       <ExpandButtonContainer>
         <ExpandButton onClick={() => setExpanded(!expanded)}>
-          {expanded ? "Hide Details" : "Show Details"}
+          {expanded ? "Скрыть детали" : "Показать детали"}
         </ExpandButton>
       </ExpandButtonContainer>
     </CardContainer>
