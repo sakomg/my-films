@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import _debounce from "lodash/debounce";
 import FilmList from "./components/FilmList/FilmList";
 import { getMoviesByName, getMovies } from "./kinopoisk-api/api";
@@ -24,7 +24,7 @@ function App() {
     setFilms(storedFilms);
   }, []);
 
-  const handleSearch = _debounce(async (searchTerm) => {
+  const processSearch = async (searchTerm) => {
     let filteredFilms = [];
     if (isApiSearch) {
       if (searchTerm.length > 2) {
@@ -41,7 +41,15 @@ function App() {
     }
     setSearchTerm(searchTerm);
     setFilterFilms(filteredFilms);
-  }, 500);
+  };
+
+  const debouncedSearch = useRef(_debounce(processSearch, 1000)).current;
+
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [debouncedSearch]);
 
   const handleChangeSearchMode = (isApiSearch) => {
     setIsApiSearch(isApiSearch);
@@ -67,7 +75,7 @@ function App() {
   return (
     <>
       <Header
-        onSearch={handleSearch}
+        onSearch={debouncedSearch}
         onSearchMode={handleChangeSearchMode}
         onAddFilm={addFilm}
       />

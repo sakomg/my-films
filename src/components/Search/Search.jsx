@@ -65,7 +65,7 @@ function Search({ onSearch }) {
     setTimeout(() => {
       onSearch(event.target.value);
       setLoading(false);
-    }, 100);
+    }, 500);
   }
 
   return (
